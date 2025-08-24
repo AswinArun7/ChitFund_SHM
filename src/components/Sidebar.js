@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Sidebar = ({ activeComponent, setActiveComponent, notificationCount }) => {
+const Sidebar = ({ activeComponent, setActiveComponent, notificationCount, onLogout, user }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'profile', label: 'My Profile', icon: '👤' },
@@ -18,6 +18,24 @@ const Sidebar = ({ activeComponent, setActiveComponent, notificationCount }) => 
         <h2>SHM Chit Fund</h2>
         <p>Decentralized Platform</p>
       </div>
+      
+      {user && (
+        <div className="user-profile">
+          <div className="user-avatar">
+            {user.avatar ? (
+              <img src={user.avatar} alt={user.name} />
+            ) : (
+              <div className="avatar-placeholder">
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+            )}
+          </div>
+          <div className="user-info">
+            <h4>{user.name}</h4>
+            <p>{user.email}</p>
+          </div>
+        </div>
+      )}
       
       <ul className="nav-menu">
         {menuItems.map((item) => (
@@ -39,6 +57,13 @@ const Sidebar = ({ activeComponent, setActiveComponent, notificationCount }) => 
           </li>
         ))}
       </ul>
+      
+      <div className="sidebar-footer">
+        <button className="logout-button" onClick={onLogout}>
+          <span>🚪</span>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
